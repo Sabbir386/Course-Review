@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { TCourse, CourseMethod, CourseModel } from './course.interface';
-const courseSchema = new Schema<TCourse, CourseModel, CourseMethod>({
+import { TCourse, CourseModel } from './course.interface';
+const courseSchema = new Schema<TCourse, CourseModel>({
   _id: { type: String, required: true },
   title: { type: String, required: true },
   instructor: { type: String, required: true },
@@ -23,7 +23,7 @@ const courseSchema = new Schema<TCourse, CourseModel, CourseMethod>({
   },
 });
 
-courseSchema.methods.isCourseExists = async function (_id: string) {
+courseSchema.statics.isCourseExists = async function (_id: string) {
   const existCourse = Course.findOne({ _id });
   return existCourse;
 };

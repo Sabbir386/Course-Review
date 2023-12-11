@@ -35,7 +35,7 @@ export type TReview = {
   review: string;
 };
 //custom instance method
-export type CourseMethod = {
+export interface CourseModel extends Model<TCourse> {
   isCourseExists(id: string): Promise<TCourse | null>;
-};
-export type CourseModel = Model<TCourse, Record<string, never>, CourseMethod>;
+}
+// export type CourseModel = Model<TCourse, Record<string, never>, CourseMethod>;
