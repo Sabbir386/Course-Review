@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Course } from './course.interface';
 const courseSchema = new Schema<Course>({
+  _id: { type: String, required: true },
   title: { type: String, required: true },
   instructor: { type: String, required: true },
   categoryId: { type: String, required: true },
