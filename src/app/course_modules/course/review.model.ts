@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { Review } from './course.interface';
 
 const reviewSchema = new Schema<Review>({
@@ -7,4 +7,4 @@ const reviewSchema = new Schema<Review>({
   review: { type: String, required: true },
 });
 
-export const ReviewModel = mongoose.model<Review>('Review', reviewSchema);
+export const ReviewModel = model<Review>('Review', reviewSchema);

@@ -1,9 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { Course } from './course.interface';
 const courseSchema = new Schema<Course>({
   title: { type: String, required: true },
   instructor: { type: String, required: true },
-  categoryId: { type: String, required: true }, // Updated to String
+  categoryId: { type: String, required: true },
   price: { type: Number, required: true },
   tags: [
     {
@@ -22,4 +22,4 @@ const courseSchema = new Schema<Course>({
   },
 });
 
-export const CourseModel = mongoose.model<Course>('Course', courseSchema);
+export const CourseModel = model<Course>('Course', courseSchema);
