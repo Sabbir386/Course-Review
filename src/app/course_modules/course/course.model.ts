@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, connect } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { Course } from './course.interface';
 const courseSchema = new Schema<Course>({
   title: { type: String, required: true },
