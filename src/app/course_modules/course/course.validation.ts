@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 const CourseValidationSchema = z.object({
-  _id: z.string().uuid(),
+  _id: z.string(),
   title: z.string(),
   instructor: z.string(),
-  categoryId: z.string().uuid(),
+  categoryId: z.string(),
   price: z.number(),
   tags: z.array(
     z.object({

@@ -12,8 +12,12 @@ const createCourse = async (req: Request, res: Response) => {
       messsage: 'Course Created Successfully',
       data: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'something went wrong',
+      error: err,
+    });
   }
 };
 export const CourseControllers = {
