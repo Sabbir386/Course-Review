@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { Category } from './course.interface';
+import { TCategory } from './course.interface';
 
-const categorySchema = new Schema<Category>({
+const categorySchema = new Schema<TCategory>({
   name: { type: String, required: true, unique: true },
 });
 
-export const CategoryModel = model<Category>('Category', categorySchema);
+export const CategoryModel = model<TCategory>('Category', categorySchema);

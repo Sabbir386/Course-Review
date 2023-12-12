@@ -6,7 +6,8 @@ export type TTag = {
 };
 
 export type TCourseDetails = {
-  level: string;
+  level: 'Beginner' | 'Intermediate' | 'Advanced';
+
   description: string;
 };
 export type TCourse = {

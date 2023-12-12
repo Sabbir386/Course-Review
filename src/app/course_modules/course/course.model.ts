@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { TCourse, CourseModel } from './course.interface';
 const courseSchema = new Schema<TCourse, CourseModel>({
   _id: { type: String, required: true },
-  title: { type: String, required: true },
+  title: { type: String, required: true, unique: true },
   instructor: { type: String, required: true },
   categoryId: { type: String, required: true },
   price: { type: Number, required: true },
@@ -18,7 +18,11 @@ const courseSchema = new Schema<TCourse, CourseModel>({
   provider: { type: String, required: true },
   durationInWeeks: { type: Number, required: true },
   details: {
-    level: { type: String, required: true },
+    level: {
+      type: String,
+      enum: ['Beginner', 'Intermediate', 'Advanced'],
+      required: true,
+    },
     description: { type: String, required: true },
   },
 });
