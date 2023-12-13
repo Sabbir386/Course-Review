@@ -11,7 +11,6 @@ export type TCourseDetails = {
   description: string;
 };
 export type TCourse = {
-  _id: string;
   title: string;
   instructor: string;
   categoryId: string;
@@ -24,17 +23,7 @@ export type TCourse = {
   durationInWeeks: number;
   details: TCourseDetails;
 };
-export type TCategory = {
-  _id: string;
-  name: string;
-};
 
-export type TReview = {
-  _id: string;
-  courseId: string;
-  rating: number;
-  review: string;
-};
 //custom instance method
 export interface CourseModel extends Model<TCourse> {
   isCourseExists(id: string): Promise<TCourse | null>;

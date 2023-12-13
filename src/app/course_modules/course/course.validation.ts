@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 const CourseValidationSchema = z.object({
-  _id: z.string(),
   title: z.string(),
   instructor: z.string(),
   categoryId: z.string(),

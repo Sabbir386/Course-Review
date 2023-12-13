@@ -4,11 +4,12 @@ import CourseValidationSchema from './course.validation';
 
 const createCourse = async (req: Request, res: Response) => {
   try {
-    const course = req.body.course;
+    const course = req.body;
     const zodParsedData = CourseValidationSchema.parse(course);
     const result = await CourseServices.createCourseIntoDb(zodParsedData);
     res.status(200).json({
       success: true,
+      statusCode: 201,
       messsage: 'Course Created Successfully',
       data: result,
     });

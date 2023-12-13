@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose';
-import { Review } from './course.interface';
+import { TReview } from './review.interface';
 
-const reviewSchema = new Schema<Review>({
+const reviewSchema = new Schema<TReview>({
   courseId: { type: String, required: true },
   rating: { type: Number, required: true, min: 1, max: 5 },
   review: { type: String, required: true },
 });
 
-export const ReviewModel = model<Review>('Review', reviewSchema);
+export const ReviewModel = model<TReview>('Review', reviewSchema);
