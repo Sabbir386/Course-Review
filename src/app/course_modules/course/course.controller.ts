@@ -1,8 +1,12 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { CourseServices } from './course.service';
 import CourseValidationSchema from './course.validation';
 
-const createCourse = async (req: Request, res: Response) => {
+const createCourse = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const course = req.body;
     const zodParsedData = CourseValidationSchema.parse(course);
@@ -14,11 +18,7 @@ const createCourse = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: err,
-    });
+    next(err);
   }
 };
 export const CourseControllers = {
