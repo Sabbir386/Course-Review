@@ -15,7 +15,7 @@ const courseSchema = new Schema<TCourse, CourseModel>({
   endDate: { type: String, required: true },
   language: { type: String, required: true },
   provider: { type: String, required: true },
-  durationInWeeks: { type: Number, required: true },
+  durationInWeeks: { type: Number, required: false },
   details: {
     level: {
       type: String,

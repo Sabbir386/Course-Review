@@ -15,7 +15,7 @@ const CourseValidationSchema = z.object({
   endDate: z.string(),
   language: z.string(),
   provider: z.string(),
-  durationInWeeks: z.number().int(),
+  durationInWeeks: z.number().int().optional(),
   details: z.object({
     level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
     description: z.string(),
