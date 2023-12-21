@@ -7,4 +7,4 @@ const reviewSchema = new Schema<TReview>({
   review: { type: String, required: true },
 });
 
-export const ReviewModel = model<TReview>('Review', reviewSchema);
+export const Review = model<TReview>('Review', reviewSchema);
