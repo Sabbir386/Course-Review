@@ -48,11 +48,34 @@ const getCoursesFromDb = async (req: Request, res: Response) => {
       message: 'Internal Server Error',
     });
   }
-
-  // const queryParams: any = req.query;
-  // const result = await CourseServices.getCousresFromDb(queryParams);
 };
+const updatedCourseById = async (req: Request, res: Response) => {
+  try {
+    const { courseId } = req.params;
+    const courseData = req.body;
+    const result = await CourseServices.updatedCourseIntoDb(
+      courseId,
+      courseData,
+    );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Course updated successfully',
+      data: result,
+    });
+  } catch (error) {
+    // console.error(error);
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: 'Internal Server Error',
+    });
+  }
+};
+
 export const CourseControllers = {
   createCourse,
   getCoursesFromDb,
+  updatedCourseById,
 };

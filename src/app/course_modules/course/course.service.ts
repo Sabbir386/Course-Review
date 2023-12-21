@@ -107,7 +107,52 @@ const getCousresFromDb = async (
   }
 };
 
+const updatedCourseIntoDb = async (courseId: string, data: object) => {
+  try {
+    // Find the course by ID
+    const course = await Course.findByIdAndUpdate({ _id: courseId }, data, {
+      new: true,
+    });
+
+    if (!course) {
+      throw new Error('Course not found');
+    }
+
+    // Update each field dynamically
+    // for (const [key, value] of Object.entries(updateData)) {
+    //   if (key === 'tags') {
+    //     // Handle tags separately to prevent mutation of non-primitive data
+    //     course[key] = (value as { name: string; isDeleted: boolean }[]).map(tag => ({ ...tag }));
+    //   } else {
+    //     course[key] = value;
+    //   }
+    // }
+
+    for (const [key, value] of Object.entries(data)) {
+      if (key === 'tags') {
+        // Handle tags separately to prevent mutation of non-primitive data
+        if (course[key] instanceof Array && value instanceof Array) {
+          course[key] = value.map(
+            (tag: { name: string; isDeleted: boolean }) => ({ ...tag }),
+          );
+        }
+      } else {
+        // Use type assertion to inform TypeScript that the property exists
+        (course as any)[key] = value;
+      }
+    }
+
+    // Save the updated course
+    const updatedCourse = await course.save();
+
+    return updatedCourse;
+  } catch (error) {
+    throw new Error('Course not found');
+  }
+};
+
 export const CourseServices = {
   createCourseIntoDb,
   getCousresFromDb,
+  updatedCourseIntoDb,
 };
