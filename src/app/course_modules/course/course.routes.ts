@@ -1,5 +1,6 @@
 import express from 'express';
 import { CourseControllers } from './course.controller';
 const router = express.Router();
-router.post('/', CourseControllers.createCourse);
+router.post('/course', CourseControllers.createCourse);
+router.get('/courses', CourseControllers.getCoursesFromDb);
 export const CourseRoutes = router;
