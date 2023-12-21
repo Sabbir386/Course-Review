@@ -5,4 +5,4 @@ const categorySchema = new Schema<TCategory>({
   name: { type: String, required: true, unique: true },
 });
 
-export const CategoryModel = model<TCategory>('Category', categorySchema);
+export const Category = model<TCategory>('Category', categorySchema);

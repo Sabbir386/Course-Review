@@ -21,7 +21,7 @@ const createCourse = async (
     // });
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.OK,
+      statusCode: httpStatus.CREATED,
       message: 'Course created successfully',
       data: result,
     });
