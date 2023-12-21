@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { TCourse } from './course.interface';
 import { Course } from './course.model';
 
@@ -25,32 +24,21 @@ const createCourseIntoDb = async (courseData: TCourse) => {
   // const result = await Course.create(savedCourse);
   return savedCourse;
 };
-// export type Ttag = {
-//   name: string;
-//   isDeleted: boolean;
-// };
-// type queryObject = {
-//   page: string;
-//   limit: string;
-//   minPrice: string;
-//   maxPrice: string;
-//   tags: Ttag[];
-//   startDate: string;
-//   endDate: string;
-//   language: string;
-//   provider: string;
-//   durationInWeeks: string;
-//   level: string;
-// };
 
 interface CourseQueryParams {
   page?: number;
   limit?: number;
-  sortBy?: string;
+  sortBy?:
+    | 'title'
+    | 'price'
+    | 'startDate'
+    | 'endDate'
+    | 'language'
+    | 'durationInWeeks';
   sortOrder?: 'asc' | 'desc';
   minPrice?: number;
   maxPrice?: number;
-  tags?: string;
+  tags?: string[];
   startDate?: string;
   endDate?: string;
   language?: string;
@@ -58,6 +46,7 @@ interface CourseQueryParams {
   durationInWeeks?: number;
   level?: string;
 }
+
 const getCousresFromDb = async (
   queryParams: CourseQueryParams,
 ): Promise<any> => {
@@ -65,7 +54,34 @@ const getCousresFromDb = async (
     const page = queryParams.page || 1;
     const limit = queryParams.limit || 10;
 
-    const query: any = {}; // Construct your query based on queryParams
+    const query: any = {};
+    if (
+      queryParams.minPrice !== undefined ||
+      queryParams.maxPrice !== undefined
+    ) {
+      query.price = {};
+      if (queryParams.minPrice !== undefined)
+        query.price.$gte = queryParams.minPrice;
+      if (queryParams.maxPrice !== undefined)
+        query.price.$lte = queryParams.maxPrice;
+    }
+
+    if (queryParams.tags && queryParams.tags.length > 0) {
+      query['tags.name'] = { $in: queryParams.tags };
+    }
+
+    if (queryParams.startDate !== undefined)
+      query.startDate = { $gte: queryParams.startDate };
+    if (queryParams.endDate !== undefined)
+      query.endDate = { $lte: queryParams.endDate };
+    if (queryParams.language !== undefined)
+      query.language = queryParams.language;
+    if (queryParams.provider !== undefined)
+      query.provider = queryParams.provider;
+    if (queryParams.durationInWeeks !== undefined)
+      query.durationInWeeks = queryParams.durationInWeeks;
+    if (queryParams.level !== undefined)
+      query['details.level'] = queryParams.level;
 
     const total = await Course.countDocuments(query);
 
@@ -87,7 +103,7 @@ const getCousresFromDb = async (
       data: courses,
     };
   } catch (error) {
-    throw new Error('Internal Server Error');
+    throw new Error('Invalid query parameters');
   }
 };
 

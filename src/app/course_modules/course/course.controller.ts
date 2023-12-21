@@ -33,6 +33,7 @@ const getCoursesFromDb = async (req: Request, res: Response) => {
   try {
     const queryParams: any = req.query;
     const result = await CourseServices.getCousresFromDb(queryParams);
+
     sendResponse(res, {
       statusCode: 200,
       success: true,
