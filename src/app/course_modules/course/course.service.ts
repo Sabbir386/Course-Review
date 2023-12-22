@@ -1,5 +1,4 @@
-import mongoose, { Schema, Types } from 'mongoose';
-import { Review } from '../review/review.model';
+import { Types } from 'mongoose';
 import { TCourse } from './course.interface';
 import { Course } from './course.model';
 
@@ -167,10 +166,50 @@ const getCourseWithReviewsFromDb = async (courseId: string) => {
     throw new Error('Course not found');
   }
 };
+const getBestCourseOnAverageReview = async () => {
+  try {
+    const bestCourse = await Course.aggregate([
+      {
+        $lookup: {
+          from: 'reviews',
+          localField: '_id',
+          foreignField: 'courseId',
+          as: 'reviews',
+        },
+      },
+      {
+        $addFields: {
+          averageRating: { $avg: '$reviews.rating' },
+          reviewCount: { $size: '$reviews' },
+        },
+      },
+      {
+        $sort: { averageRating: -1, reviewCount: -1 },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
 
+    if (!bestCourse || bestCourse.length === 0) {
+      throw new Error('Course not found');
+    }
+
+    const [bestCourseData] = bestCourse;
+
+    return {
+      data: {
+        course: bestCourseData,
+      },
+    };
+  } catch (error) {
+    throw new Error('Course not found');
+  }
+};
 export const CourseServices = {
   createCourseIntoDb,
   getCousresFromDb,
   updatedCourseIntoDb,
   getCourseWithReviewsFromDb,
+  getBestCourseOnAverageReview,
 };

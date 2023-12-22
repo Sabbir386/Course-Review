@@ -8,4 +8,5 @@ router.get(
   '/courses/:courseId/reviews',
   CourseControllers.getCoursesandReviewsById,
 );
+router.get('/course/best', CourseControllers.getBestCourseOnAverageReview);
 export const CourseRoutes = router;
