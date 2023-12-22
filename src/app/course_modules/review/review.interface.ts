@@ -1,5 +1,7 @@
+import { Schema } from 'mongoose';
+
 export type TReview = {
-  courseId: string;
+  courseId: { type: Schema.Types.ObjectId; ref: 'Course' };
   rating: number;
   review: string;
 };

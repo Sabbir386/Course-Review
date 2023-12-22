@@ -73,9 +73,30 @@ const updatedCourseById = async (req: Request, res: Response) => {
     });
   }
 };
+const getCoursesandReviewsById = async (req: Request, res: Response) => {
+  try {
+    const courseId = req.params.courseId;
+    const result = await CourseServices.getCourseWithReviewsFromDb(courseId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Course and Reviews retrieved successfully',
+      data: result,
+    });
+  } catch (error: any) {
+    // console.error(error);
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: error.message || 'Internal Server Error',
+    });
+  }
+};
 
 export const CourseControllers = {
   createCourse,
   getCoursesFromDb,
   updatedCourseById,
+  getCoursesandReviewsById,
 };

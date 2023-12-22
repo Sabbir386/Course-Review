@@ -1,3 +1,5 @@
+import mongoose, { Schema, Types } from 'mongoose';
+import { Review } from '../review/review.model';
 import { TCourse } from './course.interface';
 import { Course } from './course.model';
 
@@ -118,16 +120,6 @@ const updatedCourseIntoDb = async (courseId: string, data: object) => {
       throw new Error('Course not found');
     }
 
-    // Update each field dynamically
-    // for (const [key, value] of Object.entries(updateData)) {
-    //   if (key === 'tags') {
-    //     // Handle tags separately to prevent mutation of non-primitive data
-    //     course[key] = (value as { name: string; isDeleted: boolean }[]).map(tag => ({ ...tag }));
-    //   } else {
-    //     course[key] = value;
-    //   }
-    // }
-
     for (const [key, value] of Object.entries(data)) {
       if (key === 'tags') {
         // Handle tags separately to prevent mutation of non-primitive data
@@ -137,7 +129,6 @@ const updatedCourseIntoDb = async (courseId: string, data: object) => {
           );
         }
       } else {
-        // Use type assertion to inform TypeScript that the property exists
         (course as any)[key] = value;
       }
     }
@@ -150,9 +141,36 @@ const updatedCourseIntoDb = async (courseId: string, data: object) => {
     throw new Error('Course not found');
   }
 };
+const getCourseWithReviewsFromDb = async (courseId: string) => {
+  try {
+    // Find the course by ID
+    const course = await Course.aggregate([
+      {
+        $match: { _id: new Types.ObjectId(courseId) },
+      },
+      {
+        $lookup: {
+          from: 'reviews',
+          localField: '_id',
+          foreignField: 'courseId',
+          as: 'reviews',
+        },
+      },
+    ]);
+
+    if (!course || course.length === 0) {
+      throw new Error('Course not found');
+    }
+
+    return { data: course };
+  } catch (error) {
+    throw new Error('Course not found');
+  }
+};
 
 export const CourseServices = {
   createCourseIntoDb,
   getCousresFromDb,
   updatedCourseIntoDb,
+  getCourseWithReviewsFromDb,
 };
