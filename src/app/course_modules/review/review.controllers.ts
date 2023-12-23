@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 import httpStatus from 'http-status';
 import sendResponse from '../../utilis/sendResponse';
-import ReviewValidationSchema from './review.validation';
 import { ReviewServices } from './review.services';
 
 const createReview = async (
@@ -12,8 +11,8 @@ const createReview = async (
 ) => {
   try {
     const review = req.body;
-    const zodParsedData = ReviewValidationSchema.parse(review);
-    const result = await ReviewServices.createReviewIntoDb(zodParsedData);
+    // const zodParsedData = ReviewValidationSchema.parse(review);
+    const result = await ReviewServices.createReviewIntoDb(review);
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.CREATED,

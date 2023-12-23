@@ -29,7 +29,11 @@ const createCourse = async (
     next(err);
   }
 };
-const getCoursesFromDb = async (req: Request, res: Response) => {
+const getCoursesFromDb = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const queryParams: any = req.query;
     const result = await CourseServices.getCousresFromDb(queryParams);
@@ -40,16 +44,16 @@ const getCoursesFromDb = async (req: Request, res: Response) => {
       message: 'Courses are retrieved succesfully',
       data: result,
     });
-  } catch (error) {
+  } catch (err: any) {
     // console.error(error);
-    res.status(500).json({
-      success: false,
-      statusCode: 500,
-      message: 'Internal Server Error',
-    });
+    next(err);
   }
 };
-const updatedCourseById = async (req: Request, res: Response) => {
+const updatedCourseById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { courseId } = req.params;
     const courseData = req.body;
@@ -64,16 +68,15 @@ const updatedCourseById = async (req: Request, res: Response) => {
       message: 'Course updated successfully',
       data: result,
     });
-  } catch (error) {
-    // console.error(error);
-    res.status(500).json({
-      success: false,
-      statusCode: 500,
-      message: 'Internal Server Error',
-    });
+  } catch (err: any) {
+    next(err);
   }
 };
-const getCoursesandReviewsById = async (req: Request, res: Response) => {
+const getCoursesandReviewsById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const courseId = req.params.courseId;
     const result = await CourseServices.getCourseWithReviewsFromDb(courseId);
@@ -84,19 +87,18 @@ const getCoursesandReviewsById = async (req: Request, res: Response) => {
       message: 'Course and Reviews retrieved successfully',
       data: result,
     });
-  } catch (error: any) {
-    // console.error(error);
-    res.status(500).json({
-      success: false,
-      statusCode: 500,
-      message: error.message || 'Internal Server Error',
-    });
+  } catch (err: any) {
+    next(err);
   }
 };
-const getBestCourseOnAverageReview = async (req: Request, res: Response) => {
+const getBestCourseOnAverageReview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const courseId = req.params.courseId;
-    const result = await CourseServices.getBestCourseOnAverageReview(courseId);
+    // const courseId = req.params.courseId;
+    const result = await CourseServices.getBestCourseOnAverageReview();
 
     sendResponse(res, {
       success: true,
@@ -104,13 +106,8 @@ const getBestCourseOnAverageReview = async (req: Request, res: Response) => {
       message: 'Best course retrieved successfully',
       data: result,
     });
-  } catch (error: any) {
-    // console.error(error);
-    res.status(500).json({
-      success: false,
-      statusCode: 500,
-      message: error.message || 'Internal Server Error',
-    });
+  } catch (err: any) {
+    next(err);
   }
 };
 
