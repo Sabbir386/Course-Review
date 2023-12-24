@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { CourseRoutes } from './app/course_modules/course/course.routes';
 import globalErrorHandler from './app/middleware/globalErrorHandler';
