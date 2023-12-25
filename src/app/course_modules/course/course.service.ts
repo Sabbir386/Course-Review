@@ -116,7 +116,7 @@ const updatedCourseIntoDb = async (courseId: string, data: object) => {
     });
 
     if (!course) {
-      console.log(course);
+      // console.log(course);
       throw new Error('Course not found');
     }
 

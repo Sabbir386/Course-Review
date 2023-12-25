@@ -45,14 +45,6 @@ https://assignment-3-rosy-mu.vercel.app/api/course
 
 ```
 
-# admin access:
-
-```
-{
-    "success": true,
-    "message": "Login Successfull!",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhYmJpcjM4NkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDMwNjIyMDcsImV4cCI6MTcwMzA2NTgwN30.bPYn_-9V2ohpwG_qaVPDZXdZNMZUnwI4f8SSYq3gF_g"
-}
 # create course
 
 ```
@@ -60,41 +52,42 @@ https://assignment-3-rosy-mu.vercel.app/api/course
 # get Paginated and Filtered Courses
 
 ```
-https://assignment-3-rosy-mu.vercel.app/api/courses
 
+https://assignment-3-rosy-mu.vercel.app/api/courses
 
 ```
 
 # update a course
 
 ```
+
 https://assignment-3-rosy-mu.vercel.app/api/courses/6583fb1141f0eb6ba1514ce0
 
 sample data:
 {
-    "title": "Updated Title",
-    "instructor": "New Instructor",
-    "categoryId": "123456789012345678901234",
-    "price": 59.99,
-    "tags": [
-        {
-            "name": "Programming",
-            "isDeleted": true
-        },
-        {
-            "name": "Web Development",
-            "isDeleted": false
-        }
-    ],
-    "startDate": "2023-02-01",
-    "endDate":"2023-03-14",
-    "language": "Spanish",
-    "provider": "Code Masters",
-    "durationInWeeks": 6,
-    "details": {
-        "level": "Beginner",
-        "description": "Detailed description of the course"
-    }
+"title": "Updated Title",
+"instructor": "New Instructor",
+"categoryId": "123456789012345678901234",
+"price": 59.99,
+"tags": [
+{
+"name": "Programming",
+"isDeleted": true
+},
+{
+"name": "Web Development",
+"isDeleted": false
+}
+],
+"startDate": "2023-02-01",
+"endDate":"2023-03-14",
+"language": "Spanish",
+"provider": "Code Masters",
+"durationInWeeks": 6,
+"details": {
+"level": "Beginner",
+"description": "Detailed description of the course"
+}
 }
 
 ```
@@ -102,28 +95,29 @@ sample data:
 # get course with reviews
 
 ```
-https://x-education-five.vercel.app/api/course/65813fabc5de05376d09cec6
 
+https://x-education-five.vercel.app/api/course/65813fabc5de05376d09cec6
 
 ```
 
 # get best course on average rating
 
 ```
-https://assignment-3-rosy-mu.vercel.app/api/course/best
 
+https://assignment-3-rosy-mu.vercel.app/api/course/best
 
 ```
 
 # create a review
 
 ```
+
 https://assignment-3-rosy-mu.vercel.app/api/reviews
 
 {
-    "courseId": "6582c9144abc60a81234f668",
-    "rating": 4,
-    "review": "best course!"
+"courseId": "6582c9144abc60a81234f668",
+"rating": 4,
+"review": "best course!"
 }
 
 ```
@@ -131,9 +125,10 @@ https://assignment-3-rosy-mu.vercel.app/api/reviews
 # create a categories
 
 ```
+
 https://assignment-3-rosy-mu.vercel.app/api/categories
 {
-    "name": "Programming"
+"name": "Programming"
 }
 
 ```
@@ -141,6 +136,9 @@ https://assignment-3-rosy-mu.vercel.app/api/categories
 # get categories
 
 ```
+
 https://assignment-3-rosy-mu.vercel.app/api/categories
+
+```
 
 ```
