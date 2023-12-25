@@ -90,8 +90,7 @@ sample data:
 # get course with reviews
 
 ```
-https://x-education-five.vercel.app/api/course/65813fabc5de05376d09cec6
-
+https://assignment-3-rosy-mu.vercel.app/api/courses/6589751a14393505f44ae34b/reviews
 
 ```
 
