@@ -15,7 +15,7 @@ app.use('/api/', CategoryRoutes);
 app.use('/api/', ReviewRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+  res.send('App is Running!');
 });
 app.use(globalErrorHandler);
 app.use(notFound);
